@@ -69,11 +69,10 @@
                     <%= link_to "Shop", shop_path %>
                   </li>
                   <li>
-                    
                     <div class="header-icons">
                       <% if user_signed_in? %>
                         <%= current_user.email %> |
-                        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+                        <%= link_to 'Logout', destroy_user_session_path %>
                       <% else %>
                         <%= link_to 'Sign Up', new_user_registration_path %> |
                         <%= link_to 'Login', new_user_session_path %>
@@ -235,5 +234,9 @@
     <script src="/assets/js/main.js"></script>
     <!-- form validation js -->
     <script src="/assets/js/form-validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@rails/ujs@7.1.2/lib/assets/compiled/rails-ujs.min.js"></script>
+    <script>
+      Rails.start()
+    </script>
   </body>
 </html>
