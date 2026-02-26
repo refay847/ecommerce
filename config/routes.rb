@@ -16,4 +16,8 @@ Rails.application.routes.draw do
   get "/news", to: "pages#news"
   get "/single_news", to: "pages#single_news"
   get "/contact", to: "pages#contact"
+  get "/single_product", to: "pages#single_product"
+  get "/cart", to: "pages#cart"
+  get "/checkout", to: "pages#checkout"
+  get "/404", to: "pages#error_404"
 end

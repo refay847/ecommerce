@@ -21,4 +21,20 @@ class PagesController < ApplicationController
   def single_news
     
   end
+
+  def single_product
+    
+  end
+
+  def cart
+    
+  end
+
+  def checkout
+    
+  end
+
+  def error_404
+    
+  end
 end
