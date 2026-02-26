@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_26_195101) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_26_210604) do
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "image_path"
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "image_path"
+    t.string "name", null: false
+    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.integer "stock_quantity", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -22,4 +42,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_26_195101) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "products", "categories"
 end

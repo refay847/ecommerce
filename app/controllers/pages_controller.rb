@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, only: [ :cart, :checkout ]
   layout false, only: [ :home ]
   def home
+    @categories = Category.all
   end
 
   def about
