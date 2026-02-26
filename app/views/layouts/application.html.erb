@@ -45,7 +45,7 @@
             <div class="main-menu-wrap">
               <!-- logo -->
               <div class="site-logo">
-                <a href="index.html">
+                <a href="/">
                   <img src="assets/img/logo.png" alt="">
                 </a>
               </div>
@@ -53,35 +53,29 @@
               <!-- menu start -->
               <nav class="main-menu">
                 <ul>
-                  <li class="current-list-item"><a href="/">Home</a>
+                  <li class="<%= 'current-list-item' if current_page?(root_path) %>">
+                    <%= link_to "Home", root_path %>
                   </li>
-                  <li><a href="/about">About</a></li>
-                  <li><a href="#">Pages</a>
-                    <ul class="sub-menu">
-                      <li><a href="404.html">404 page</a></li>
-                      <li><a href="/about">About</a></li>
-                      <li><a href="/cart">Cart</a></li>
-                      <li><a href="checkout.html">Check Out</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                      <li><a href="/news">News</a></li>
-                      <li><a href="/shop">Shop</a></li>
-                    </ul>
+                  <li class="<%= 'current-list-item' if current_page?(about_path) %>">
+                    <%= link_to "About", about_path %>
                   </li>
-                  <li><a href="/news">News</a>
+                  <li class="<%= 'current-list-item' if current_page?(news_path) %>">
+                    <%= link_to "News", news_path %>
                   </li>
-                  <li><a href="/contact">Contact</a></li>
-                  <li><a href="/shop">Shop</a>
-                    <ul class="sub-menu">
-                      <li><a href="/shop">Shop</a></li>
-                      <li><a href="/checkout">Check Out</a></li>
-                      <li><a href="/single-product">Single Product</a></li>
-                      <li><a href="/cart">Cart</a></li>
-                    </ul>
+                  <li class="<%= 'current-list-item' if current_page?(contact_path) %>">
+                    <%= link_to "Contact", contact_path %>
+                  </li>
+                  <li class="<%= 'current-list-item' if current_page?(shop_path) %>">
+                    <%= link_to "Shop", shop_path %>
                   </li>
                   <li>
                     <div class="header-icons">
-                      <a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
-                      <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                      <%= link_to cart_path, class: "shopping-cart" do %>
+                        <i class="fas fa-shopping-cart"></i>
+                      <% end %>
+                      <a class="mobile-hide search-bar-icon" href="#">
+                        <i class="fas fa-search"></i>
+                      </a>
                     </div>
                   </li>
                 </ul>
