@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get "/about", to: "pages#about"
   get "/shop", to: "pages#shop"
   get "/news", to: "pages#news"
+  get "/single_news", to: "pages#single_news"
   get "/contact", to: "pages#contact"
 end
