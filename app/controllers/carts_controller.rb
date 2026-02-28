@@ -1,30 +1,29 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
-  def add_item
-    product = Product.find(params[:product_id])
+def add_item
+  product = Product.find(params[:product_id])
 
-    # جيب الكارت النشط أو اعمل واحد جديد
-    cart = current_user.cart || current_user.create_cart(status: "active")
+  quantity = params[:quantity].to_i
+  quantity = 1 if quantity <= 0
 
-    # شوف لو المنتج موجود في الكارت
-    cart_item = cart.cart_items.find_by(product_id: product.id)
+  cart = current_user.cart || current_user.create_cart(status: "active")
 
-    if cart_item
-      # لو موجود → زود الكمية
-      cart_item.quantity += 1
-      cart_item.save
-    else
-      # لو مش موجود → أضفه
-      cart.cart_items.create!(
-        product: product,
-        quantity: 1,
-        price_at_time: product.price
-      )
-    end
+  cart_item = cart.cart_items.find_by(product_id: product.id)
 
-    redirect_back fallback_location: root_path, notice: "Product added to cart"
+  if cart_item
+    cart_item.quantity += quantity
+    cart_item.save
+  else
+    cart.cart_items.create!(
+      product: product,
+      quantity: quantity,
+      price_at_time: product.price
+    )
   end
+
+  redirect_back fallback_location: root_path, notice: "Product added to cart"
+end
 
   def show
     @cart = current_user.cart

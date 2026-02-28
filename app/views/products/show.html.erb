@@ -27,14 +27,12 @@
           <p class="single-product-pricing"><span>Per Kg</span> $<%= @product.price %></p>
           <p><%= @product.description %></p>
           <div class="single-product-form">
-            <form action="index.html">
-              <input type="number" placeholder="0">
-            </form>
-            <%= button_to add_to_cart_path(@product.id),
-              method: :post,
-              class: "cart-btn" do %>
+            <%= form_with url: add_to_cart_path(@product.id), method: :post, local: true do |f| %>
+              <%= number_field_tag :quantity, 1, min: 1, class: "form-control" %>
+              <button type="submit" class="cart-btn">
                 <i class="fas fa-shopping-cart"></i> Add to Cart
-              <% end %>
+              </button>
+            <% end %>
             <p><strong>Categories: </strong><%= @product.category.name %></p>
           </div>
           <h4>Share:</h4>
