@@ -15,23 +15,29 @@
 <div class="product-section mt-150 mb-150">
   <div class="container">
     <div class="row product-lists">
-      <% @products.each do |product| %>
-        <div class="col-lg-4 col-md-6 text-center">
-          <div class="single-product-item">
-            <div class="product-image">
-              <a href="#">
-                <img src="<%= product.image_path%>" alt="">
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <div class="col-lg-4 col-md-6 text-center">
+            <div class="single-product-item">
+              <div class="product-image">
+                <a href="#">
+                  <img src="<%= product.image_path%>" alt="">
+                </a>
+              </div>
+              <h3><%= product.name %></h3>
+              <p class="product-price">
+                <span>Per Item</span>
+                <%= product.price %>$
+              </p>
+              <a href="#" class="cart-btn">
+                <i class="fas fa-shopping-cart"></i> Add to Cart
               </a>
             </div>
-            <h3><%= product.name %></h3>
-            <p class="product-price">
-              <span>Per Item</span>
-              <%= product.price %>$
-            </p>
-            <a href="#" class="cart-btn">
-              <i class="fas fa-shopping-cart"></i> Add to Cart
-            </a>
           </div>
+        <% end %>
+      <% else %>
+        <div class="col-12 text-center">
+          <h3>There are no products</h3>
         </div>
       <% end %>
     </div>
