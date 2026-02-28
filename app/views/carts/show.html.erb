@@ -30,30 +30,45 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-body-row">
-                <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-                <td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
-                <td class="product-name">Strawberry</td>
-                <td class="product-price">$85</td>
-                <td class="product-quantity"><input type="number" placeholder="0"></td>
-                <td class="product-total">1</td>
-              </tr>
-              <tr class="table-body-row">
-                <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-                <td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
-                <td class="product-name">Berry</td>
-                <td class="product-price">$70</td>
-                <td class="product-quantity"><input type="number" placeholder="0"></td>
-                <td class="product-total">1</td>
-              </tr>
-              <tr class="table-body-row">
-                <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-                <td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
-                <td class="product-name">Lemon</td>
-                <td class="product-price">$35</td>
-                <td class="product-quantity"><input type="number" placeholder="0"></td>
-                <td class="product-total">1</td>
-              </tr>
+              <% if @cart && @cart.cart_items.any? %>
+                <% @cart.cart_items.each do |item| %>
+                  <tr class="table-body-row">
+                    <!-- Remove Button -->
+                    <td class="product-remove">
+                      <%= button_to cart_item_path(item),
+              method: :delete,
+              form: { style: "display:inline;" },
+              class: "delete-btn" do %>
+                        <i class="far fa-window-close"></i>
+                      <% end %>
+                    </td>
+                    <!-- Product Image -->
+                    <td class="product-image">
+                      <%= image_tag(item.product.image_path.presence || "assets/img/default-product.jpg") %>
+                    </td>
+                    <!-- Product Name -->
+                    <td class="product-name">
+                      <%= item.product.name %>
+                    </td>
+                    <!-- Price -->
+                    <td class="product-price">
+                      $<%= item.price_at_time %>
+                    </td>
+                    <!-- Quantity -->
+                    <td class="product-quantity">
+                      <%= item.quantity %>
+                    </td>
+                    <!-- Total -->
+                    <td class="product-total">
+                      $<%= item.quantity * item.price_at_time %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="6">Your cart is empty.</td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -74,26 +89,17 @@
               </tr>
               <tr class="total-data">
                 <td><strong>Shipping: </strong></td>
-                <td>$45</td>
+                <td>$20</td>
               </tr>
               <tr class="total-data">
                 <td><strong>Total: </strong></td>
-                <td>$545</td>
+                <td>$<%= @cart.cart_items.sum { |item| item.quantity * item.price_at_time } if @cart %></td>
               </tr>
             </tbody>
           </table>
           <div class="cart-buttons">
             <a href="cart.html" class="boxed-btn">Update Cart</a>
             <a href="checkout.html" class="boxed-btn black">Check Out</a>
-          </div>
-        </div>
-        <div class="coupon-section">
-          <h3>Apply Coupon</h3>
-          <div class="coupon-form-wrap">
-            <form action="index.html">
-              <p><input type="text" placeholder="Coupon"></p>
-              <p><input type="submit" value="Apply"></p>
-            </form>
           </div>
         </div>
       </div>

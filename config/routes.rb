@@ -19,9 +19,15 @@ Rails.application.routes.draw do
   get "/single_news", to: "pages#single_news"
   get "/contact", to: "pages#contact"
   get "/single_product", to: "pages#single_product"
-  get "/cart", to: "pages#cart"
+  # get "/cart", to: "pages#cart"
   get "/checkout", to: "pages#checkout"
   get "/404", to: "pages#error_404"
   # go to the products in a certain category
   get "/products/:category", to: "products#index", as: :products_by_category
+
+
+  post "/cart/add/:product_id", to: "carts#add_item", as: :add_to_cart
+  get "/cart", to: "carts#show", as: :cart
+
+  resources :cart_items, only: [:destroy]
 end

@@ -29,9 +29,11 @@
                 <span>Per Item</span>
                 <%= product.price %>$
               </p>
-              <a href="#" class="cart-btn">
+              <%= button_to add_to_cart_path(product.id),
+              method: :post,
+              class: "cart-btn" do %>
                 <i class="fas fa-shopping-cart"></i> Add to Cart
-              </a>
+              <% end %>
             </div>
           </div>
         <% end %>
