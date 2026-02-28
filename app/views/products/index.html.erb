@@ -20,7 +20,7 @@
           <div class="single-product-item">
             <div class="product-image">
               <a href="#">
-                <img src="<%= product.image_path.present? ? product.image_path : asset_path('default-product.jpg') %>" alt="">
+                <img src="<%= product.image_path%>" alt="">
               </a>
             </div>
             <h3><%= product.name %></h3>
