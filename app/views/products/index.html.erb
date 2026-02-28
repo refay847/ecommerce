@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 text-center">
         <div class="breadcrumb-text">
-          <h1><%= @category ? @category.name : "All Products" %></h1>
+          <h1><%= @category.name %></h1>
         </div>
       </div>
     </div>
@@ -34,6 +34,8 @@
               class: "cart-btn" do %>
                 <i class="fas fa-shopping-cart"></i> Add to Cart
               <% end %>
+              <%# show the product %>
+              <%= link_to "View Details", product_path(product), class: "cart-btn" %>
             </div>
           </div>
         <% end %>
