@@ -1,10 +1,20 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
 
   # GET /products
-def index
-  @products = Product.all
-end
+  def index
+    if params[:category]
+      @category = Category.find_by(name: params[:category])
+
+      if @category
+        @products = @category.products
+      else
+        @products = Product.none
+      end
+    else
+      @products = Product.none
+    end
+  end
 
   # GET /products/:id
   def show

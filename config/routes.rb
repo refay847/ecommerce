@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   get "/cart", to: "pages#cart"
   get "/checkout", to: "pages#checkout"
   get "/404", to: "pages#error_404"
-  get "/products", to: "products#index"
+  # go to the products in a certain category
+  get "/products/:category", to: "products#index", as: :products_by_category
 end
