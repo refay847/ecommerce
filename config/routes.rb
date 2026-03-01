@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :admins, sign_out_via: [ :get, :delete ]
+
   # devise_for :users
-  devise_for :users, sign_out_via: [:get, :delete]
+  devise_for :users, sign_out_via: [ :get, :delete ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
   # get "/cart", to: "pages#cart"
   get "/checkout", to: "pages#checkout"
   get "/404", to: "pages#error_404"
-  resources :products, except: [:index]
+  resources :products, except: [ :index ]
   # go to the products in a certain category
   get "/products/category/:category", to: "products#cat_products", as: :products_by_category
   get "/shop", to: "products#shop"
@@ -30,5 +32,14 @@ Rails.application.routes.draw do
   post "/cart/add/:product_id", to: "carts#add_item", as: :add_to_cart
   get "/cart", to: "carts#show", as: :cart
 
-  resources :cart_items, only: [:destroy]
+  resources :cart_items, only: [ :destroy ]
+
+
+
+
+  draw :admin
+end
+
+def draw(routes_name)
+  instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
 end

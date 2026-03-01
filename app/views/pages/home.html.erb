@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
     <!-- title -->
-    <title>Fruitkha - Slider Version</title>
+    <title>Fruitkha</title>
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
     <!-- google font -->
@@ -71,7 +71,7 @@
                   <li>
                     <div class="header-icons">
                       <% if user_signed_in? %>
-                        <%= current_user.email %> |
+                        <span style="color: white;"><%= current_user.email %></span> |
                         <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
                       <% else %>
                         <%= link_to 'Sign Up', new_user_registration_path %> |

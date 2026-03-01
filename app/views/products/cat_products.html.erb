@@ -1,17 +1,6 @@
-	<!-- breadcrumb-section -->
-<div class="breadcrumb-section breadcrumb-bg">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 text-center">
-        <div class="breadcrumb-text">
-					<p>Fresh and Organic</p>
-          <h1><%= @category.name %></h1>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end breadcrumb section -->
+	<% content_for :title, @category.name %>
+<%content_for :_1st, "Fresh and Organic" %>
+<%content_for :_2nd, @category.name %>
 <!-- products -->
 <div class="product-section mt-150 mb-150">
   <div class="container">
