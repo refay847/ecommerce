@@ -85,7 +85,7 @@
             <tbody>
               <tr class="total-data">
                 <td><strong>Subtotal: </strong></td>
-                <td>$500</td>
+                <td>$<%= @cart.cart_items.sum { |item| item.quantity * item.price_at_time } if @cart %></td>
               </tr>
               <tr class="total-data">
                 <td><strong>Shipping: </strong></td>
@@ -93,7 +93,11 @@
               </tr>
               <tr class="total-data">
                 <td><strong>Total: </strong></td>
-                <td>$<%= @cart.cart_items.sum { |item| item.quantity * item.price_at_time } if @cart %></td>
+                <td>
+                  $<%= @cart && @cart.cart_items.any? ? 
+          @cart.cart_items.sum { |item| item.quantity * item.price_at_time } + 20 
+          : 0 %>
+                </td>
               </tr>
             </tbody>
           </table>
