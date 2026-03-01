@@ -8,9 +8,6 @@ class PagesController < ApplicationController
   def about
   end
 
-  def shop
-  end
-
   def news
   end
 

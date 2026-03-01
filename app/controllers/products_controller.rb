@@ -55,6 +55,18 @@ class ProductsController < ApplicationController
     redirect_to products_url, notice: "Product was successfully destroyed."
   end
 
+
+ def shop
+    @categories = Category.all
+
+    if params[:category].present?
+      @selected_category = Category.find_by(name: params[:category])
+      @products = @selected_category&.products&.where(active: true) || []
+    else
+      @products = Product.includes(:category).where(active: true)
+    end
+  end
+
   private
 
   def set_product
