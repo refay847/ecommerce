@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [ :show, :edit, :update, :destroy ]
 
   # GET /products
-  def index
+  def cat_products
     if params[:category]
       @category = Category.find_by(name: params[:category])
 

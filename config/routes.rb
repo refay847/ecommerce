@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get "/404", to: "pages#error_404"
   resources :products, except: [:index]
   # go to the products in a certain category
-  get "/products/category/:category", to: "products#index", as: :products_by_category
+  get "/products/category/:category", to: "products#cat_products", as: :products_by_category
 
 
   post "/cart/add/:product_id", to: "carts#add_item", as: :add_to_cart
