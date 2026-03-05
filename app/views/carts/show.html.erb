@@ -1,7 +1,6 @@
 <% content_for :title, "Cart" %>
-
-    <%content_for :_1st, "Fresh and Organic" %>
-    <%content_for :_2nd, "Cart" %>
+<%content_for :_1st, "Fresh and Organic" %>
+<%content_for :_2nd, "Cart" %>
 <!-- cart -->
 <div class="cart-section mt-150 mb-150">
   <div class="container">
@@ -92,8 +91,10 @@
             </tbody>
           </table>
           <div class="cart-buttons">
-            <a href="cart.html" class="boxed-btn">Update Cart</a>
-            <a href="checkout.html" class="boxed-btn black">Check Out</a>
+            <a href="/shop" class="boxed-btn">Keep Shopping</a>
+            <% if @cart.cart_items.any? %>
+              <%= link_to "Check Out", checkout_path, class: "boxed-btn black" %>
+            <% end %>          
           </div>
         </div>
       </div>

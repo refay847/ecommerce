@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get "/contact", to: "pages#contact"
   get "/single_product", to: "pages#single_product"
   # get "/cart", to: "pages#cart"
-  get "/checkout", to: "pages#checkout"
   get "/404", to: "pages#error_404"
   resources :products, except: [ :index ]
   # go to the products in a certain category
@@ -33,6 +32,12 @@ Rails.application.routes.draw do
   get "/cart", to: "carts#show", as: :cart
 
   resources :cart_items, only: [ :destroy ]
+
+
+
+  resources :orders, only: [:create, :show]
+  get "/checkout", to: "orders#checkout"
+
 
 
 

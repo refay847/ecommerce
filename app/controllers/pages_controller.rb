@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [ :cart, :checkout ]
   layout false, only: [ :home ]
   def home
     @categories = Category.all
@@ -20,11 +19,7 @@ class PagesController < ApplicationController
   def single_product
   end
 
-  def cart
-  end
-
-  def checkout
-  end
+ 
 
   def error_404
   end

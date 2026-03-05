@@ -1,0 +1,149 @@
+	<% content_for :title, "Checkout" %>
+<%content_for :_1st, "Fresh and Organic" %>
+<%content_for :_2nd, "Checkout" %>
+<!-- check out section -->
+<div class="checkout-section mt-150 mb-150">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="checkout-accordion-wrap">
+          <div class="accordion" id="accordionExample">
+            <div class="card single-accordion">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Billing Address
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="billing-address-form">
+                    <%= form_with model: @order, url: orders_path, method: :post, html: { id: "checkout-form" } do |f| %>
+                      <div class="billing-address-form">
+                        <p><%= f.text_field :name, placeholder: "Name", class: "form-control" %></p>
+                        <p><%= f.email_field :email, placeholder: "Email", class: "form-control" %></p>
+                        <p><%= f.text_field :shipping_address, placeholder: "Shipping Address", class: "form-control" %></p>
+                        <p><%= f.telephone_field :phone_number, placeholder: "Phone", class: "form-control" %></p>
+                        <p>
+                          <%= f.text_area :description, placeholder: "Say Something", rows: 5, class: "form-control" %>
+                        </p>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card single-accordion">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Card Details
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="cart-table-wrap">
+                    <table class="cart-table">
+                      <thead class="cart-table-head">
+                        <tr class="table-head-row">
+                          <th class="product-image">Product Image</th>
+                          <th class="product-name">Name</th>
+                          <th class="product-price">Price</th>
+                          <th class="product-quantity">Quantity</th>
+                          <th class="product-total">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if @cart && @cart.cart_items.any? %>
+                          <% @cart.cart_items.each do |item| %>
+                            <tr class="table-body-row">
+                              <!-- Product Image -->
+                              <td class="product-image">
+                                <%= image_tag(item.product.image_path.presence || "assets/img/default-product.jpg") %>
+                              </td>
+                              <!-- Product Name -->
+                              <td class="product-name">
+                                <%= item.product.name %>
+                              </td>
+                              <!-- Price -->
+                              <td class="product-price">
+                                $<%= item.price_at_time %>
+                              </td>
+                              <!-- Quantity -->
+                              <td class="product-quantity">
+                                <%= item.quantity %>
+                              </td>
+                              <!-- Total -->
+                              <td class="product-total">
+                                $<%= item.quantity * item.price_at_time %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        <% else %>
+                          <tr>
+                            <td colspan="6">Your cart is empty.</td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="order-details-wrap">
+          <table class="order-details">
+            <thead>
+              <tr>
+                <th>Your order Details</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody class="order-details-body">
+              <tr>
+                <td>Product</td>
+                <td>Total</td>
+              </tr>
+              <% if @cart && @cart.cart_items.any? %>
+                <% @cart.cart_items.each do |item| %>
+                  <tr>
+                    <td>
+                      <%= item.product.name %>
+                      (x<%= item.quantity %>)
+                    </td>
+                    <td>
+                      $<%= item.quantity * item.price_at_time %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="2">Your cart is empty.</td>
+                </tr>
+              <% end %>
+            </tbody>
+            <% if @cart && @cart.cart_items.any? %>
+              <tbody class="checkout-details">
+                <tr>
+                  <td>Total</td>
+                  <td>$<%= @cart.total_price %></td>
+                </tr>
+              </tbody>
+            <% end %>
+          </table>
+          <div class="order-details-wrap mt-4">
+            <button type="submit" form="checkout-form" class="boxed-btn">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end check out section -->
