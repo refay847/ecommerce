@@ -1,29 +1,39 @@
 <% content_for :title, "All Orders" %>
-<%content_for :_1st, "Orders" %>
-<%content_for :_2nd, "All Orders" %>
+<% content_for :_1st, "Orders" %>
+<% content_for :_2nd, "All Orders" %>
 
+<div class="orders-section mt-5 mb-5">
+  <div class="container">
+    <div class="row">
+      <% @orders.each do |order| %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Order #<%= order.id %></h5>
+              <p class="card-text"><strong>User:</strong> <%= order.email %></p>
+              <p class="card-text"><strong>Total Amount:</strong> <%= number_to_currency(order.total_amount) %></p>
+              <p class="card-text"><strong>Status:</strong> <%= order.status.capitalize %></p>
+              <%= link_to "View Details", order_path(order), class: "btn btn-primary mt-2" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-<h1>All Orders</h1>
+    <!-- Pagination (optional) -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="pagination-wrap mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link active" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>User</th>
-      <th>Total Amount</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.id %></td>
-        <td><%= order.email %></td>
-        <td><%= number_to_currency(order.total_amount) %></td>
-        <td><%= order.status %></td>
-        <td><%= link_to "View", order_path(order) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
