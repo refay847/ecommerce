@@ -1,5 +1,5 @@
 namespace :admin do
-  root "dashboard#index"
-
+  root "admin#index"
+  get "orders", to: "admin#orders"
 
 end
