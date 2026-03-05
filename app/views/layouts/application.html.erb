@@ -68,6 +68,9 @@
                   <li class="<%= 'current-list-item' if current_page?(shop_path) %>">
                     <%= link_to "Shop", shop_path %>
                   </li>
+                  <li class="<%= 'current-list-item' if current_page?(orders_path) %>">
+                    <%= link_to "Orders", orders_path %>
+                  </li>
                   <li>
                     <div class="header-icons">
                       <% if user_signed_in? %>
@@ -114,22 +117,20 @@
       </div>
     </div>
     <!-- end search arewa -->
-
-
     <!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p><%= content_for?(:_1st) ? yield(:_1st) : "Default Title" %></p>
-						<h1><%= content_for?(:_2nd) ? yield(:_2nd) : "Default Title" %></h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2 text-center">
+            <div class="breadcrumb-text">
+              <p><%= content_for?(:_1st) ? yield(:_1st) : "Default Title" %></p>
+              <h1><%= content_for?(:_2nd) ? yield(:_2nd) : "Default Title" %></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end breadcrumb section -->
     <%= yield %>
     <!-- logo carousel -->
     <div class="logo-carousel-section">

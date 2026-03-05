@@ -1,0 +1,44 @@
+<% content_for :title, "Order ##{@order.id}" %>
+<%content_for :_1st, "Orders" %>
+<%content_for :_2nd, "Order #{@order.id}" %>
+
+
+
+<h1>Order #<%= @order.id %></h1>
+
+<p>
+  <strong>User:</strong> <%= @order.name %><br>
+  <strong>Total Amount:</strong> <%= number_to_currency(@order.total_amount) %><br>
+  <strong>Status:</strong> <%= @order.status.capitalize %><br>
+  <strong>Shipping Address:</strong> <%= @order.shipping_address %><br>
+  <strong>Phone:</strong> <%= @order.phone_number %>
+</p>
+
+<h2>Order Items</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price at Purchase</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price_at_purchase) %></td>
+        <td><%= number_to_currency(item.quantity * item.price_at_purchase) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>Total:</strong> <%= number_to_currency(@order.total_amount) %>
+</p>
+
+<%= link_to "Back to Orders", orders_path %>
