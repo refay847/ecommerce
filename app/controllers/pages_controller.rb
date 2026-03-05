@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   layout false, only: [ :home ]
   def home
-    @categories = Category.all
+    @categories = Category.active
   end
 
   def about

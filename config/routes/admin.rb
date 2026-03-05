@@ -6,6 +6,10 @@ namespace :admin do
       patch :toggle_active
     end
   end
-  resources :categories
+  resources :categories do
+    member do
+      patch :toggle_active
+    end
+  end
 
 end

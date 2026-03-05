@@ -1,0 +1,65 @@
+<% content_for :title, "Categories" %>
+
+<div class="container mt-5">
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <h2>Categories</h2>
+    </div>
+    <div class="col-md-6 text-end">
+      <%= link_to "Add New Category", new_admin_category_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Products Count</th>
+        <th>Active</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each_with_index do |category, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= category.name %></td>
+            <td>
+                <% if category.image_path.present? %>
+                <%= image_tag category.image_path, alt: category.name, width: 50 %>
+                <% else %>
+                No Image
+                <% end %>
+          </td>
+          <td><%= category.products.count %></td>
+            <td>
+                <% if category.active? %>
+                <span class="badge bg-success">Active</span>
+                <% else %>
+                <span class="badge bg-danger">Inactive</span>
+                <% end %>
+            <td>
+            <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-warning btn-sm" %>
+
+            <% if category.active? %>
+                <%= button_to "Deactivate",
+                    toggle_active_admin_category_path(category),
+                    method: :patch,
+                    data: { turbo_confirm: "Are you sure you want to deactivate this category? All its products will also become inactive." },
+                    class: "btn btn-danger btn-sm" %>
+            <% else %>
+                <%= button_to "Activate",
+                    toggle_active_admin_category_path(category),
+                    method: :patch,
+                    class: "btn btn-success btn-sm" %>
+            <% end %>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

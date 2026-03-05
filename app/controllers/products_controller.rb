@@ -4,10 +4,10 @@ class ProductsController < ApplicationController
   # GET /products
   def cat_products
     if params[:category]
-      @category = Category.find_by(name: params[:category])
+      @category = Category.active.find_by(name: params[:category])
 
       if @category
-        @products = @category.products
+        @products = @category.products.active
       else
         @products = Product.none
       end
@@ -17,8 +17,19 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/:id
-  def show
-    @product = Product.find(params[:id])
+  def shop
+    # فقط الفئات النشطة
+    @categories = Category.active
+
+    if params[:category].present?
+      @selected_category = Category.active.find_by(name: params[:category])
+
+      # منتجات الفئة النشطة فقط
+      @products = @selected_category&.products&.active || []
+    else
+      # جميع المنتجات النشطة
+      @products = Product.includes(:category).active
+    end
   end
 
   # GET /products/new
@@ -56,16 +67,7 @@ class ProductsController < ApplicationController
   end
 
 
- def shop
-    @categories = Category.all
 
-    if params[:category].present?
-      @selected_category = Category.find_by(name: params[:category])
-      @products = @selected_category&.products&.where(active: true) || []
-    else
-      @products = Product.includes(:category).where(active: true)
-    end
-  end
 
   private
 
