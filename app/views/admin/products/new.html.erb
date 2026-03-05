@@ -1,0 +1,39 @@
+<% content_for :title, "Add Product" %>
+
+<h1>Add New Product</h1>
+
+<%= form_with model: [:admin, @product] do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :price %>
+    <%= f.number_field :price, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :stock_quantity %>
+    <%= f.number_field :stock_quantity, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :category %>
+    <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select Category", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :image_path %>
+    <%= f.text_field :image_path, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+
+  <%= f.submit "Create Product", class: "btn btn-primary" %>
+
+<% end %>
