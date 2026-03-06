@@ -1,0 +1,69 @@
+<% content_for :title, "Order ##{@order.id}" %>
+<% content_for :_1st, "Orders" %>
+<% content_for :_2nd, "Order #{@order.id}" %>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Order #<%= @order.id %></h1>
+      <!-- Order Details Card -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Order Details</h5>
+          <p class="card-text"><strong>User:</strong> <%= @order.name %></p>
+          <p class="card-text"><strong>Status:</strong> <span class="badge <%= @order.status == 'pending' ? 'bg-warning' : @order.status == 'shipped' ? 'bg-info' : @order.status == 'delivered' ? 'bg-success' : 'bg-danger' %>"><%= @order.status.capitalize %></span></p>
+          <p class="card-text"><strong>Shipping Address:</strong> <%= @order.shipping_address %></p>
+          <p class="card-text"><strong>Phone:</strong> <%= @order.phone_number %></p>
+          <p class="card-text"><strong>Total Amount:</strong> <%= number_to_currency(@order.total_amount) %></p>
+        </div>
+      </div>
+      <!-- Order Items Table -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Order Items</h5>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price at Purchase</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @order_items.each do |item| %>
+                  <tr>
+                    <td><%= item.product.name %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= number_to_currency(item.price_at_purchase) %></td>
+                    <td><%= number_to_currency(item.quantity * item.price_at_purchase) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Back Button -->
+      <div class="text-end">
+        <%= link_to "Back to Orders", admin_orders_path, class: "btn btn-secondary" %>
+      </div>
+        <%= button_to "Pending",
+  update_status_admin_order_path(@order, status: :pending),
+  method: :patch,
+  class: "btn btn-secondary btn-sm" %>
+      <%= button_to "Ship",
+      update_status_admin_order_path(@order, status: :shipped),
+      method: :patch,
+      class: "btn btn-warning btn-sm" %>
+      <%= button_to "Deliver",
+      update_status_admin_order_path(@order, status: :delivered),
+      method: :patch,
+      class: "btn btn-success btn-sm" %>
+      <%= button_to "Cancel",
+      update_status_admin_order_path(@order, status: :canceled),
+      method: :patch,
+      class: "btn btn-danger btn-sm" %>
+    </div>
+  </div>
+</div>

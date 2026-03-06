@@ -1,6 +1,10 @@
 namespace :admin do
-  root "admin#index"
-  get "orders", to: "admin#orders"
+  root "home#index"
+  resources :orders, only: [:index, :show] do
+    member do
+      patch :update_status
+    end
+  end
   resources :products do
     member do
       patch :toggle_active

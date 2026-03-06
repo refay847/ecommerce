@@ -1,0 +1,79 @@
+<% content_for :title, "All Orders" %>
+<% content_for :_1st, "Orders" %>
+<% content_for :_2nd, "All Orders" %>
+<div class="orders-section mt-5 mb-5">
+  <div class="container">
+<div class="mb-4 text-center">
+
+  <%= link_to "All",
+      admin_orders_path,
+      class: "btn btn-dark btn-sm" %>
+
+  <%= link_to "Pending",
+      admin_orders_path(status: :pending),
+      class: "btn btn-warning btn-sm" %>
+
+  <%= link_to "Shipped",
+      admin_orders_path(status: :shipped),
+      class: "btn btn-info btn-sm" %>
+
+  <%= link_to "Delivered",
+      admin_orders_path(status: :delivered),
+      class: "btn btn-success btn-sm" %>
+
+  <%= link_to "Canceled",
+      admin_orders_path(status: :canceled),
+      class: "btn btn-danger btn-sm" %>
+
+</div>
+    <div class="row">
+        
+      <% @orders.each do |order| %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Order #<%= order.id %></h5>
+              <p class="card-text"><strong>User Account:</strong> <%= order.user.email %></p>
+              <p class="card-text"><strong>Contact Email:</strong> <%= order.email %></p>
+              <p class="card-text"><strong>Total Amount:</strong> <%= number_to_currency(order.total_amount) %></p>
+              <p class="card-text"><strong>Status:</strong> <span class="badge <%= order.status == 'pending' ? 'bg-warning' : order.status == 'shipped' ? 'bg-info' : order.status == 'delivered' ? 'bg-success' : 'bg-danger' %>"><%= order.status.capitalize %></span></p>
+              <%= link_to "View Details", admin_order_path(order), class: "btn btn-primary mt-2" %>
+              <td>
+                <%= button_to "Pending",
+  update_status_admin_order_path(order, status: :pending),
+  method: :patch,
+  class: "btn btn-secondary btn-sm" %>
+                <%= button_to "Ship",
+      update_status_admin_order_path(order, status: :shipped),
+      method: :patch,
+      class: "btn btn-warning btn-sm" %>
+                <%= button_to "Deliver",
+      update_status_admin_order_path(order, status: :delivered),
+      method: :patch,
+      class: "btn btn-success btn-sm" %>
+                <%= button_to "Cancel",
+      update_status_admin_order_path(order, status: :canceled),
+      method: :patch,
+      class: "btn btn-danger btn-sm" %>
+              </td>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <!-- Pagination (optional) -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="pagination-wrap mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link active" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
