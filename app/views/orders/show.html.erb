@@ -52,6 +52,13 @@
       <div class="text-end">
         <%= link_to "Back to Orders", orders_path, class: "btn btn-secondary" %>
       </div>
+      <% if @order.pending? %>
+  <%= button_to "Cancel Order",
+      order_path(@order),
+      method: :delete,
+      data: { confirm: "Are you sure?" },
+      class: "btn btn-danger mt-2" %>
+<% end %>
     </div>
   </div>
 </div>

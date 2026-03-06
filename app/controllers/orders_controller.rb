@@ -51,6 +51,17 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build
   end
 
+  def destroy
+    @order = current_user.orders.find(params[:id])
+
+    if @order.pending?
+      @order.canceled!
+      redirect_back fallback_location: orders_path, notice: "Order canceled successfully."
+    else
+      redirect_back fallback_location: orders_path, alert: "Only pending orders can be canceled."
+    end
+  end
+
 
   private
 

@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :orders, only: [:create, :show , :index]
+  resources :orders, only: [:create, :show , :index , :destroy]
   get "/checkout", to: "orders#checkout"
 
 
