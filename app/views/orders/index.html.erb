@@ -3,6 +3,29 @@
 <% content_for :_2nd, "All Orders" %>
 <div class="orders-section mt-5 mb-5">
   <div class="container">
+    <div class="mb-4 text-center">
+
+  <%= link_to "All",
+      orders_path,
+      class: "btn btn-dark btn-sm" %>
+
+  <%= link_to "Pending",
+      orders_path(status: :pending),
+      class: "btn btn-warning btn-sm" %>
+
+  <%= link_to "Shipped",
+      orders_path(status: :shipped),
+      class: "btn btn-info btn-sm" %>
+
+  <%= link_to "Delivered",
+      orders_path(status: :delivered),
+      class: "btn btn-success btn-sm" %>
+
+  <%= link_to "Canceled",
+      orders_path(status: :canceled),
+      class: "btn btn-danger btn-sm" %>
+
+</div>
     <div class="row">
       <% @orders.each do |order| %>
         <div class="col-lg-4 col-md-6 mb-4">

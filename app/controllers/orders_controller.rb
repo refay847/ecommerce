@@ -34,8 +34,15 @@ class OrdersController < ApplicationController
 
 
 
+  # def index
+  #   @orders = current_user.orders.order(created_at: :desc)
+  # end
   def index
-    @orders = current_user.orders.order(created_at: :desc)
+    if params[:status].present?
+      @orders = current_user.orders.where(status: params[:status]).order(created_at: :desc)
+    else
+      @orders = current_user.orders.order(created_at: :desc)
+    end
   end
 
 
