@@ -1,4 +1,38 @@
-<% content_for :title, "Admin Dashboard" %>
+<% content_for :title, "Users" %>
+<% content_for :_1st, "Admin" %>
+<% content_for :_2nd, "Users" %>
 
-<% content_for :_1st, "Admin Dashboard" %>
-<% content_for :_2nd, "Admin Dashboard" %>
+<div class="orders-section mt-5 mb-5">
+  <div class="container">
+    <div class="row">
+
+      <% @users.each do |user| %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+
+              <h5 class="card-title">User #<%= user.id %></h5>
+
+              <p class="card-text">
+                <strong>Email:</strong> <%= user.email %>
+              </p>
+
+              <p class="card-text">
+                <strong>Total Orders:</strong>
+                <span class="badge bg-primary">
+                  <%= user.orders.count %>
+                </span>
+              </p>
+
+              <%= link_to "View Orders",
+                  admin_orders_path(user_id: user.id),
+                  class: "btn btn-primary mt-2" %>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
